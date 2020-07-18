@@ -1,0 +1,47 @@
+<html><head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<style>
+
+</style>
+
+</head><body>
+<!-- http://dojopuzzles.com/problemas/exibe/cheque-por-extenso/ -->
+<h1>DOJOZERA mode on</h1>
+<button id="vai">Vai!</button>
+<input type="number" id="valor">
+<script>
+
+  $("#vai").click(function(){
+    let divisores = [null, 1, 10, 100, 1000, 10000]
+    let valor = $('#valor').val()
+    let casasAntesDaVirgula = Math.floor(parseFloat(valor))
+    let tamanho = casasAntesDaVirgula.toString().length
+    console.log(tamanho)
+    console.log(casasAntesDaVirgula)
+    
+        let extenso = [
+          		[null],
+              ["um", "dois", "três", "quatro", "cinco", "seis", "sete", "oito", "nove"],
+      				["dez", "onze", "doze", "treze", "quatorze", "quinze", "dezesseis", "dezessete", "dezoito", "dezenove"],
+              ["vinte", "trinta","quarenta", "cinquenta","sessenta","setenta", "oitenta", "noventa"],
+              ["cem", "duzentos", "trezentos","quatrocentos", "quinhentos", "seiscentos", "setecentos", "oitocentos", "novecentos"],
+                  ]
+        
+    let numero = casasAntesDaVirgula
+    for(let i = tamanho; i >= 0; i--){
+    	let quociente = Math.floor(numero / divisores[i])
+      numero = numero % divisores[i]
+      console.log(quociente)
+      console.log(numero)
+      console.log(extenso[i][quociente-1])
+      if(numero == 0){
+        break
+      }
+    }
+    
+
+    
+    })
+  
+</script>
+	</body></html>
