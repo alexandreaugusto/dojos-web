@@ -1,21 +1,21 @@
-#expressjs:
+# expressjs:
 
-- Instalando o expressjs:
+Instalando o expressjs:
 
 https://expressjs.com/pt-br/starter/installing.html
 
-- Criando a aplicação Hello World:
+Criando a aplicação Hello World:
 
 https://expressjs.com/pt-br/starter/hello-world.html
 
-#Docker
+# Docker
 
-- Dockerizando uma aplicação nodejs: 
+Dockerizando uma aplicação nodejs: 
 
 https://nodejs.org/de/docs/guides/nodejs-docker-webapp/
 
-#Comandos utilizados no Dojo (by Leandro):
-
+- Comandos utilizados no Dojo (by Leandro):
+```
 cd /home/leandro/Dev/cptec
 mkdir nodedocker
 cd nodedocker/
@@ -32,6 +32,7 @@ sudo docker rm stupefied_pike
 sudo docker rmi 03420934absea9c8as #remove imagem docker da máquina
 sudo docker exec -it stupefied_pike /bin/bash #entra na imagem (no container), dentro do workdir definido no Dockerfile
 sudo docker exec -it stupefied_pike /bin/sh #entra na imagem (no container) usando shell
+```
 
 
 
