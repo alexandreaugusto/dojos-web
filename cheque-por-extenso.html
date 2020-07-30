@@ -1,48 +1,81 @@
-<html><head>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<style>
+<html>
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <style>
 
-</style>
+  </style>
 
-</head><body>
-<!-- http://dojopuzzles.com/problemas/exibe/cheque-por-extenso/ -->
-<!-- https://syncfiddle.net/fiddle/-MCSggEIqB71bTgfMxI- -->
-<h1>DOJOZERA mode on</h1>
-<button id="vai">Vai!</button>
-<input type="number" id="valor">
-<script>
+</head>
+<body>
+  <!-- http://dojopuzzles.com/problemas/exibe/cheque-por-extenso/ -->
+  <!-- https://syncfiddle.net/fiddle/-MCSggEIqB71bTgfMxI- -->
+  <h1>DOJOZERA mode on</h1>
+  <button id="vai">Vai!</button>
+  <input type="number" id="valor" value="999452" >
+  <script>
 
-  $("#vai").click(function(){
-    let divisores = [null, 1, 10, 100, 1000, 10000]
-    let valor = $('#valor').val()
-    let casasAntesDaVirgula = Math.floor(parseFloat(valor))
-    let tamanho = casasAntesDaVirgula.toString().length
-    console.log(tamanho)
-    console.log(casasAntesDaVirgula)
-    
-        let extenso = [
-          		[null],
-              ["um", "dois", "três", "quatro", "cinco", "seis", "sete", "oito", "nove"],
-      				["dez", "onze", "doze", "treze", "quatorze", "quinze", "dezesseis", "dezessete", "dezoito", "dezenove"],
-              ["vinte", "trinta","quarenta", "cinquenta","sessenta","setenta", "oitenta", "noventa"],
-              ["cem", "duzentos", "trezentos","quatrocentos", "quinhentos", "seiscentos", "setecentos", "oitocentos", "novecentos"],
-                  ]
-        
-    let numero = casasAntesDaVirgula
-    for(let i = tamanho; i >= 0; i--){
-    	let quociente = Math.floor(numero / divisores[i])
+    function porExtenso(numero){
+      let divisores = [ null,1, 10, 100]
+      let extenso = [ 
+      ["zero","um", "dois", "três", "quatro", "cinco", "seis", "sete", "oito", "nove"],
+      ["dez", "onze", "doze", "treze", "quatorze", "quinze", "dezesseis", "dezessete", "dezoito", "dezenove"],
+      [null, null, "vinte", "trinta","quarenta", "cinquenta","sessenta","setenta", "oitenta", "noventa"],
+      [null, "cento", "duzentos", "trezentos","quatrocentos", "quinhentos", "seiscentos", "setecentos", "oitocentos", "novecentos"],
+      ]
+
+      let i = numero.toString().length
+      let quociente = Math.floor(numero / divisores[i])
       numero = numero % divisores[i]
-      console.log(quociente)
-      console.log(numero)
-      console.log(extenso[i][quociente-1])
-      if(numero == 0){
-        break
+      console.log(i)
+      if(i == 1){
+        i-- 
       }
+      if(numero > 0) {
+        return extenso[i][quociente] + " " + porExtenso(numero)
+      }else{
+        return extenso[i][quociente]
+      }
+      
     }
-    
 
-    
+    $("#vai").click(function(){
+      let divisores = [null, 1, 10, 100, 1000, 1000000]
+      let extensoDivisores = [null, null, null, null, "mil", "milhão"]
+      let valor = $('#valor').val()
+      let casasAntesDaVirgula = Math.floor(parseFloat(valor))
+      let tamanho = casasAntesDaVirgula.toString().length
+      console.log(tamanho)
+      console.log(casasAntesDaVirgula)
+
+      let extenso = [
+
+      ["zero","um", "dois", "três", "quatro", "cinco", "seis", "sete", "oito", "nove"],
+      ["dez", "onze", "doze", "treze", "quatorze", "quinze", "dezesseis", "dezessete", "dezoito", "dezenove"],
+      [null, null, "vinte", "trinta","quarenta", "cinquenta","sessenta","setenta", "oitenta", "noventa"],
+      [null, "cem", "duzentos", "trezentos","quatrocentos", "quinhentos", "seiscentos", "setecentos", "oitocentos", "novecentos"],
+      ]
+
+      let numero = casasAntesDaVirgula
+      for(let i = tamanho; i >= 0; i--){
+        if (numero >= divisores[i]){                            
+          let quociente = Math.floor(numero / divisores[i])
+          numero = numero % divisores[i]
+          if(extensoDivisores[i] != null) {
+            console.log(porExtenso(quociente) + " " + extensoDivisores[i])                                                       }else{
+              if(i == 1){
+               i-- 
+             }
+             console.log(extenso[i][quociente])
+           }        
+         }
+         if(numero == 0){
+          break
+        }
+      }
+
+
+
     })
-  
-</script>
-	</body></html>
+
+  </script>
+</body></html>
