@@ -1,0 +1,12 @@
+---
+- hosts: all
+
+  tasks:
+    - name: ping
+      tags: all,ping
+      ping:
+
+    - name: apt -y update
+      tags: install,update
+      apt:
+        update_cache: yes

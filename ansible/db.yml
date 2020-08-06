@@ -1,0 +1,10 @@
+---
+- hosts: db
+
+  tasks:
+    - name: instalação de mysql
+      tags: mysql
+      apt:
+        name: 
+          - mysql-server
+

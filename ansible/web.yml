@@ -1,0 +1,10 @@
+---
+- hosts: web
+
+  tasks:
+    - name: instalação de pacotes
+      tags: nginx
+      apt:
+        name: 
+          - nginx
+
