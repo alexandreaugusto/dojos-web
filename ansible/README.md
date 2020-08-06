@@ -1,4 +1,4 @@
-0 - Termos
+# 0 - Termos
 
 A lista a seguir contém uma rápida visão geral dos termos mais relevantes usados pelo Ansible:
 
@@ -18,37 +18,40 @@ Facts: variáveis globais que contêm informações sobre o sistema, como interf
 
 Handlers: usado para acionar alterações no status do serviço, como reiniciar ou recarregar um serviço.
 
+# 1 - Primeiros passos
 
-1 - Primeiros passos
-
-Inventário: (hosts)
-
+- Inventário: (criar arquivo ./hosts)
+```
 goiatins.cptec.inpe.br
 cajapio.cptec.inpe.br
+```
 
-execução como argumento:
+- execução como argumento:
+```
 ansible -i hosts all -a "/bin/echo hello"
+```
 
-
-módulos: 
+- módulos: 
+```
 ansible -i hosts all -m ping
 ansible -i hosts all -m copy -a "src=/etc/hosts dest=/tmp/hosts"
 ansible -i hosts all -m setup
 ansible -i hosts all -m debug -a "msg={{ ansible_memtotal_mb }}"
+```
 
-execução como superusuário (sudo)
+- execução como superusuário (sudo)
+```
 ansible -i hosts all -m ping -u luiz.coura -b -k -K
 ansible -i hosts all -m apt -a "name=vim state=present" -u luiz.coura -b -k -K
 ansible -i hosts all -m service -a "name=cron state=started" -u luiz.coura -b -k -K
 ansible -i hosts all -m service -a "name=cron state=restarted" -u luiz.coura -b -k -K
-
 ansible -i hosts all -l cajapio.cptec.inpe.br -a "/sbin/reboot" -u luiz.coura -b -k -K
+```
 
+# 2 - Playbook
 
-2 - Playbook
-
-ex:
-
+Exemplo:
+```
 ---
 - hosts: all
 
@@ -60,11 +63,10 @@ ex:
       copy:
         src: /etc/hosts
         dest: /tmp/hosts
+```
 
-Referências:
+# Referências:
 
 https://docs.ansible.com/ansible/latest/user_guide/index.html
 https://docs.ansible.com/ansible/latest/modules/list_of_all_modules.html#all-modules
 https://www.digitalocean.com/community/tutorials/configuration-management-101-writing-ansible-playbooks-pt
-
-
