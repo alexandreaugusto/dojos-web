@@ -1,0 +1,103 @@
+<html><head>
+<style>
+body {
+  font-family: "Comic-Sans", Helvetica, sans-serif;
+}
+</style>
+
+<!-- https://syncfiddle.net/fiddle/-MEckM5KDNOJptX9oZ72 -->
+<!-- Baseado em http://dojopuzzles.com/problemas/exibe/poker/ -->
+
+</head><body><h1>Poker do niver da Elisa</h1>
+
+<script>
+
+  let cartas = [2, 3, 4, 5, 6, 7, 8, 9, 10, "Valete", "Dama", "Rei", "Ás"]
+  let naipes = ["D","H","S","C"]
+  let mao1 = ["10H","ValeteH","DamaH","ReiH","ÁsH"]
+  let mao2 = ["2C","3S","8S","8D","10D"]
+  
+  function cartaAlta(){
+   return true; 
+  }
+  function umPar(){
+   return true;
+  }
+  function doisPares(){
+   return true;
+  }
+   function trinca(){
+   return true;
+  }
+  
+  function straight(){
+   return true;
+  }
+
+  function flush(){
+   return true;
+  }
+  function fullHouse(){
+   return true;
+  }
+  function quadra(){
+   return true;
+  }
+  function straightFlush(){
+   return true;
+  }
+  function royalFlush(minhasCartas){
+    let valores = minhasCartas.map(carta => carta.valor)
+    let naipes = minhasCartas.map(carta => carta.naipe)
+    let uniqueItems = Array.from(new Set(naipes))
+    let intersection = valores.filter(x => ["10","Valete","Dama","Rei","Ás"].includes(x));
+    return (intersection.length == 5 && uniqueItems.length == 1)
+  }
+  
+  function yourHand(mao) {
+    let minhasCartas = []
+    for(let i=0; i< mao.length; i++){
+      let carta = mao[i]
+      let naipe = carta.substring(carta.length-1)
+      let valor = carta.substring(0, carta.length-1)
+      minhasCartas.push({"naipe":naipe, "valor":valor})      
+    }
+    if (royalFlush(minhasCartas)){
+      return 10; 
+    } else if (straightFlush(minhasCartas)) {
+      return 9;
+    } else if(quadra(minhasCartas)){
+      return 8;
+    } else if(fullHouse(minhasCartas)){
+      return 7;
+    } else if(flush(minhasCartas)){
+      return 6;
+    } else if(straight(minhasCartas)){
+      return 5;
+    } else if(trinca(minhasCartas)){
+      return 4;
+    } else if(doisPares(minhasCartas)){
+      return 3;
+    } else if(umPares(minhasCartas)){
+      return 2;
+    } else if(cartaAlta(minhasCartas)){
+      return 1;
+    }
+      
+    console.log(minhasCartas)
+  }
+  
+  function winner(){
+    console.log("mao1")
+    let valorMao1 = yourHand(mao1)
+    console.log(valorMao1)
+    console.log("mao2")
+    let valorMao2 = yourHand(mao2)
+    console.log(valorMao2)
+  }
+  winner()
+  
+  
+  
+</script>
+</body></html>
