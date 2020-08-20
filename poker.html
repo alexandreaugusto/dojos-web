@@ -12,21 +12,36 @@ body {
 
 <script>
 
-  let cartas = [2, 3, 4, 5, 6, 7, 8, 9, 10, "Valete", "Dama", "Rei", "Ás"]
+  let cartas =      ['2', '3', '4', '5', '6', '7', '8', '9', '10', "Valete", "Dama", "Rei", "Ás"]  
   let naipes = ["D","H","S","C"]
-  let mao1 = ["10H","ValeteH","DamaH","ReiH","ÁsH"]
+  
+  let mao1 = ["ValeteH","DamaH","9H","ReiH","10H"]
   let mao2 = ["2C","3S","8S","8D","10D"]
   
-  function cartaAlta(){
+  function cartaAlta(minhasCartas){
+    minhasCartas.sort(function (a, b) {
+      if (indiceCarta(a.valor) > indiceCarta(b.valor)) {
+        return 1;
+      }
+      if (a.name < b.name) {
+        return -1;
+      }
+      // a must be equal to b
+      return 0;
+    });
+    console.log(minhasCartas)
    return true; 
   }
+  
   function umPar(){
-   return true;
+   return false;
   }
+  
   function doisPares(){
    return true;
   }
-   function trinca(){
+  
+  function trinca(){
    return true;
   }
   
@@ -34,17 +49,43 @@ body {
    return true;
   }
 
-  function flush(){
-   return true;
+  function flush(minhasCartas){
+    let naipes = minhasCartas.map(carta => carta.naipe)
+    let uniqueItems = Array.from(new Set(naipes))
+    return (uniqueItems.length == 1)
   }
+  
   function fullHouse(){
    return true;
   }
+  
   function quadra(){
    return true;
   }
-  function straightFlush(){
-   return true;
+  
+  function straightFlush(minhasCartas){
+    let valores = minhasCartas.map(carta => carta.valor)
+    let naipes = minhasCartas.map(carta => carta.naipe)
+    let uniqueItems = Array.from(new Set(naipes))
+        
+    valores.sort(function (a, b) {
+      if (indiceCarta(a) < indiceCarta(b)) {
+        return -1;
+      } else {
+       return 1;
+      }
+    })
+    
+    let consecutivo = true
+    for(let i=1; i < valores.length; i++){
+  
+      if ((indiceCarta(valores[i]) - indiceCarta(valores[i-1])) != 1){
+        consecutivo = false
+        break
+      }
+    }
+    
+    return (uniqueItems.length == 1 && consecutivo)      
   }
   function royalFlush(minhasCartas){
     let valores = minhasCartas.map(carta => carta.valor)
@@ -52,6 +93,10 @@ body {
     let uniqueItems = Array.from(new Set(naipes))
     let intersection = valores.filter(x => ["10","Valete","Dama","Rei","Ás"].includes(x));
     return (intersection.length == 5 && uniqueItems.length == 1)
+  }
+  
+  function indiceCarta(carta){
+    return cartas.indexOf(carta);
   }
   
   function yourHand(mao) {
